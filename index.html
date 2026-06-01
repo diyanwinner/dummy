@@ -2377,9 +2377,9 @@
         list.forEach((art, i) => {
           const dateStr = new Date(art.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
           const card = document.createElement('div');
-          card.className = 'article-card reveal';
+          card.className = 'article-card reveal visible';
           card.style.setProperty('--reveal-delay', (i * 0.08) + 's');
-          card.onclick = () => openArticleModal(art);
+          card.onclick = () => { location.href = 'artikel.html?id=' + i; };
           card.innerHTML = `
             ${art.image
               ? `<img class="article-thumb" src="${art.image}" alt="${art.title}" loading="lazy">`
@@ -2396,12 +2396,6 @@
             </div>
           `;
           grid.appendChild(card);
-        });
-
-        /* Trigger reveal observer for new cards */
-        document.querySelectorAll('.article-card.reveal').forEach(el => {
-          el.classList.remove('visible');
-          if (window._revealObserver) window._revealObserver.observe(el);
         });
       })
       .catch(() => {
