@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+locale: id
+
+collections:
+  - name: articles
+    label: Artikel
+    files:
+      - name: all_articles
+        label: Semua Artikel
+        file: content/articles.json
+        fields:
+          - name: articles
+            label: Daftar Artikel
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Judul, name: title, widget: string }
+              - { label: Tanggal, name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMMM YYYY", time_format: false }
+              - label: Kategori
+                name: category
+                widget: select
+                options:
+                  - { label: Akuntansi, value: Accounting }
+                  - { label: Pajak, value: Tax }
+                  - { label: Bisnis & Konsultasi, value: Business Consulting }
+                  - { label: Umum, value: General }
+              - { label: Ringkasan, name: summary, widget: text, hint: "Tampil di halaman utama artikel (maks 200 karakter)" }
+              - { label: Isi Artikel, name: body, widget: markdown }
+              - { label: Gambar (opsional), name: image, widget: image, required: false, hint: "Gambar thumbnail artikel" }
